@@ -76,6 +76,93 @@
       </application-type>
     </content-preview>
     <reports>
+      <entry name="Exp-All App Traffic">
+        <type>
+          <traffic>
+            <aggregate-by>
+              <member>from</member>
+              <member>src</member>
+              <member>sport</member>
+              <member>to</member>
+              <member>dst</member>
+              <member>dport</member>
+              <member>app</member>
+            </aggregate-by>
+            <values>
+              <member>bytes</member>
+            </values>
+          </traffic>
+        </type>
+        <topn>10</topn>
+        <topm>10</topm>
+        <frequency>daily</frequency>
+        <caption>Exp-All App Traffic</caption>
+        <period>last-calendar-day</period>
+        <description>query i.e. (app eq google-drive-web)</description>
+      </entry>
+      <entry name="Exp-URL-Example">
+        <type>
+          <url>
+            <sortby>repeatcnt</sortby>
+            <group-by>misc</group-by>
+            <aggregate-by>
+              <member>category</member>
+            </aggregate-by>
+            <values>
+              <member>repeatcnt</member>
+            </values>
+          </url>
+        </type>
+        <period>last-24-hrs</period>
+        <topn>25</topn>
+        <topm>25</topm>
+        <query>(app eq youtube-base) and (url contains '/watch')</query>
+        <caption>Exp-URL-Example</caption>
+      </entry>
+      <entry name="Exp-Vulnerability-Exempt">
+        <type>
+          <threat>
+            <sortby>repeatcnt</sortby>
+            <aggregate-by>
+              <member>threatid</member>
+            </aggregate-by>
+            <values>
+              <member>repeatcnt</member>
+            </values>
+          </threat>
+        </type>
+        <period>last-calendar-day</period>
+        <topn>10</topn>
+        <topm>50</topm>
+        <frequency>daily</frequency>
+        <query>(subtype eq vulnerability) and ( (severity eq critical) or ( severity eq high ) ) and ( (threatid neq 41002) and (threatid neq 41005) and (threatid neq 41010) and (threatid neq 41001) and (threatid neq 41000) and (threatid neq 42000))</query>
+        <caption>Exp-Vulnerability-Exempt</caption>
+        <description>Example of vulnerability report with omissions</description>
+      </entry>
+      <entry name="Threat Check">
+        <type>
+          <threat>
+            <sortby>repeatcnt</sortby>
+            <group-by>threatid</group-by>
+            <aggregate-by>
+              <member>src</member>
+              <member>dst</member>
+              <member>app</member>
+              <member>severity</member>
+            </aggregate-by>
+            <values>
+              <member>repeatcnt</member>
+            </values>
+          </threat>
+        </type>
+        <period>last-calendar-week</period>
+        <topn>500</topn>
+        <topm>50</topm>
+        <frequency>daily</frequency>
+        <caption>Threat Check</caption>
+        <query>(severity geq medium)</query>
+        <description>Verification report - chk against directional based</description>
+      </entry>
       <entry name="Hosts Visiting Malicious Sites">
         <type>
           <url>
@@ -257,6 +344,7 @@
           </traffic>
         </type>
         <description>Optional: What is trying to access internal servers. Not scheduled.</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Used Rules">
         <period>last-7-calendar-days</period>
@@ -370,7 +458,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound File UPLD by Rule</caption>
-        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server)</query>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET)) and (direction eq client-to-server)</query>
         <frequency>daily</frequency>
         <type>
           <data>
@@ -383,6 +471,7 @@
               <member>to</member>
               <member>dst</member>
               <member>direction</member>
+              <member>action</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -452,6 +541,8 @@
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
+              <member>action</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -465,8 +556,7 @@
         <topn>500</topn>
         <topm>10</topm>
         <caption>Inbound Denied Viruses</caption>
-        <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
-        <frequency>daily</frequency>
+        <query>((subtype eq virus) or (subtype eq wildfire-virus)) and ((zone.src eq INTERNET) or (zone.src eq EXT-INTERNET_V6)) and (action neq alert)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -477,6 +567,8 @@
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
+              <member>action</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -484,6 +576,7 @@
           </threat>
         </type>
         <description>Viruses successfully denied from entering your network</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Rules wThreat">
         <period>last-7-calendar-days</period>
@@ -516,8 +609,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Threat by SRC IP</caption>
-        <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
-        <frequency>daily</frequency>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))) and (direction eq server-to-client) and (severity geq low)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -529,14 +621,15 @@
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
+              <member>from</member>
               <member>action</member>
-              <member>srcuser</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </threat>
         </type>
+        <frequency>daily</frequency>
         <description>Inbound Rules allowing or denying viruses, spyware and vulnerabilities</description>
       </entry>
       <entry name="Inbound Threat by DST IP">
@@ -544,7 +637,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Threat by DST IP</caption>
-        <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))  and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -635,8 +728,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Allowd Spyware Rule</caption>
-        <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware) and ((action eq alert) or (action eq allow))</query>
-        <frequency>daily</frequency>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET)) and ((action eq allow) or (action eq alert)) and (subtype eq spyware)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -652,6 +744,7 @@
               <member>severity</member>
               <member>misc</member>
               <member>action</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -659,14 +752,14 @@
           </threat>
         </type>
         <description>Spyware allowed in from the Internet</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Denied Spyware Rule">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Denied Spyware Rule</caption>
-        <query>((zone.src eq DMZInNet ) and (zone.dst neq DMZInNet ) and (addr.src notin 192.168.0.0/16) and (addr.src notin 10.0.0.0/8) and (direction eq client-to-server)) or ((zone.src neq DMZInNet ) and (zone.dst eq DMZInNet ) and (addr.dst notin 192.168.0.0/16) and (addr.dst notin 10.0.0.0/8) and (direction eq server-to-client)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq allow) or (action neq alert))</query>
-        <frequency>daily</frequency>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET)) and ((action neq allow) and (action neq alert)) and (subtype eq spyware)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -689,14 +782,14 @@
           </threat>
         </type>
         <description>Spyware successfully blocked from entering your network</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Allowd Vuln C2S Rule">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Allowd Vuln C2S Rule</caption>
-        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
-        <frequency>daily</frequency>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET)) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -710,6 +803,8 @@
               <member>severity</member>
               <member>category-of-threatid</member>
               <member>srcloc</member>
+              <member>from</member>
+              <member>action</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -717,6 +812,7 @@
           </threat>
         </type>
         <description>Client on the Internet sending traffic to your network intended to exploit a vulnerability on your network.</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Denied Vuln C2S Rule">
         <period>last-7-calendar-days</period>
@@ -738,6 +834,7 @@
               <member>severity</member>
               <member>category-of-threatid</member>
               <member>srcloc</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -751,7 +848,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Allowd Vuln S2C Rule</caption>
-        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET)) and  (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -766,6 +863,8 @@
               <member>severity</member>
               <member>category-of-threatid</member>
               <member>srcloc</member>
+              <member>action</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -779,8 +878,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Denied Vuln S2C Rule</caption>
-        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
-        <frequency>daily</frequency>
+        <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (direction eq server-to-client)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -794,12 +892,15 @@
               <member>severity</member>
               <member>category-of-threatid</member>
               <member>srcloc</member>
+              <member>action</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </threat>
         </type>
+        <frequency>daily</frequency>
         <description>Vulnerabilties successfully denied from entering your network where traffic initiated external, attacker internal</description>
       </entry>
       <entry name="Inbound URLs by Rule">
@@ -820,6 +921,7 @@
             </values>
           </url>
         </type>
+        <frequency>daily</frequency>
         <description>Inbound Rules with URL Filtering applied</description>
       </entry>
       <entry name="Inbound Apps">
@@ -870,6 +972,7 @@
           </traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data - Source IP</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Inbound Apps-Ports">
         <period>last-7-calendar-days</period>
@@ -975,7 +1078,7 @@
         <description>Internet Clients Downloading Files from your network</description>
       </entry>
       <entry name="Inbound File DNLD by RuleDetail">
-        <period>last-15-minutes</period>
+        <period>last-calendar-day</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound File DNLD by RuleDetail</caption>
@@ -1000,13 +1103,14 @@
           </data>
         </type>
         <description>Internet Clients Downloading Files from your network</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Internal Used Rules">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Used Rules</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable))</query>
         <frequency>daily</frequency>
         <type>
           <traffic>
@@ -1027,7 +1131,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Rules wURL Filtering</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))))</query>
         <frequency>daily</frequency>
         <type>
           <url>
@@ -1050,7 +1154,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal File UPLD by Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
           <data>
@@ -1063,21 +1167,21 @@
               <member>to</member>
               <member>dst</member>
               <member>direction</member>
+              <member>action</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </data>
         </type>
-        <description>Internal Clients Uploading Files to your network</description>
+        <description>Internal Clients Uploading files from your network</description>
       </entry>
       <entry name="Internal Allowd Viruses">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>10</topm>
         <caption>Internal Allowd Viruses</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((action eq alert) or (action eq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -1088,21 +1192,23 @@
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </threat>
         </type>
-        <description>Viruses allowed where source and dest are inside your network</description>
+        <frequency>daily</frequency>
+        <description>All internal allowed viruses and wildfire viruses</description>
       </entry>
       <entry name="Internal Denied Viruses">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>10</topm>
         <caption>Internal Denied Viruses</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -1113,20 +1219,23 @@
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </threat>
         </type>
-        <description>Viruses successfully blocked from inside your network</description>
+        <frequency>daily</frequency>
+        <description>Viruses denied on your internal network</description>
       </entry>
       <entry name="Internal Rules wThreat">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Rules wThreat</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1152,21 +1261,20 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Threat by SRC IP</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (severity geq medium)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
+              <member>from</member>
+              <member>to</member>
               <member>threatid</member>
               <member>category-of-threatid</member>
-              <member>subtype</member>
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
               <member>action</member>
-              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -1174,27 +1282,57 @@
           </threat>
         </type>
         <description>Internal Rules allowing or denying viruses, spyware and vulnerabilities</description>
+        <frequency>daily</frequency>
+      </entry>
+      <entry name="Brute Force All">
+        <period>last-7-calendar-days</period>
+        <topn>500</topn>
+        <topm>50</topm>
+        <caption>Brute Force All</caption>
+        <query>(severity geq medium) and (category-of-threatid eq brute-force)</query>
+        <type>
+          <threat>
+            <sortby>repeatcnt</sortby>
+            <group-by>rule</group-by>
+            <aggregate-by>
+              <member>threatid</member>
+              <member>subtype</member>
+              <member>app</member>
+              <member>direction</member>
+              <member>severity</member>
+              <member>from</member>
+              <member>src</member>
+              <member>to</member>
+              <member>dst</member>
+              <member>action</member>
+            </aggregate-by>
+            <values>
+              <member>repeatcnt</member>
+            </values>
+          </threat>
+        </type>
+        <frequency>daily</frequency>
+        <description>Category brute-force medium or higher</description>
       </entry>
       <entry name="Internal Threat by DST IP">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Threat by DST IP</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (severity geq medium)</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
             <group-by>dst</group-by>
             <aggregate-by>
+              <member>to</member>
+              <member>from</member>
               <member>threatid</member>
               <member>category-of-threatid</member>
-              <member>subtype</member>
               <member>app</member>
               <member>direction</member>
               <member>severity</member>
               <member>action</member>
-              <member>dstuser</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -1202,13 +1340,14 @@
           </threat>
         </type>
         <description>Internal Rules allowing or denying viruses, spyware and vulnerabilities</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Internal FileTypes to WildFire">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal FileTypes to WildFire</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))))</query>
         <frequency>daily</frequency>
         <type>
           <wildfire>
@@ -1216,20 +1355,21 @@
             <group-by>rule</group-by>
             <aggregate-by>
               <member>filetype</member>
+              <member>category</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </wildfire>
         </type>
-        <description>File Types from-to internal traffic that have an unknown verdict and are sent to WildFire</description>
+        <description>File Types from-to internal traffic that are sent to WildFire</description>
       </entry>
       <entry name="InternalApps to WildFire">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>InternalApps to WildFire</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))))</query>
         <frequency>daily</frequency>
         <type>
           <wildfire>
@@ -1238,6 +1378,7 @@
             <aggregate-by>
               <member>app</member>
               <member>filetype</member>
+              <member>category</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -1251,7 +1392,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Rules to WildFire</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))))</query>
         <frequency>daily</frequency>
         <type>
           <wildfire>
@@ -1260,6 +1401,7 @@
             <aggregate-by>
               <member>app</member>
               <member>filetype</member>
+              <member>category</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -1273,8 +1415,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Allowd Spyware Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware) and ((action eq alert) or (action eq allow))</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (subtype eq spyware) and (severity geq medium) and ((action eq alert) or (action eq allow))</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -1290,33 +1431,37 @@
               <member>severity</member>
               <member>misc</member>
               <member>action</member>
+              <member>to</member>
+              <member>from</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
             </values>
           </threat>
         </type>
-        <description>Spyware allowed where source and dest are inside your network</description>
+        <frequency>daily</frequency>
+        <description>Internal spyware sev greater than med allowed</description>
       </entry>
       <entry name="Internal Spyware by IP">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Spyware by IP</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (subtype eq spyware))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
-              <member>srcuser</member>
+              <member>from</member>
+              <member>to</member>
+              <member>dst</member>
               <member>category-of-threatid</member>
               <member>subtype</member>
               <member>threatid</member>
               <member>category-of-app</member>
               <member>app</member>
-              <member>dport</member>
               <member>direction</member>
               <member>severity</member>
               <member>misc</member>
@@ -1334,7 +1479,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Denied Spyware Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware) and ((action neq alert) and (action neq allow))</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (subtype eq spyware) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1357,14 +1502,14 @@
             </values>
           </threat>
         </type>
-        <description>Spyware traffic successfully blocked from inside your network</description>
+        <description>Internal Spyware Denied </description>
       </entry>
       <entry name="Internal Allowd Vuln C2S Rule">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Allowd Vuln C2S Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1392,7 +1537,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Denied Vuln C2S Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1420,7 +1565,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Allowd Vuln S2C Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1448,7 +1593,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Denied Vuln S2C Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -1476,11 +1621,12 @@
         <topn>500</topn>
         <topm>10</topm>
         <caption>Internal URLs</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))))</query>
         <type>
           <url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
+              <member>rule</member>
               <member>to</member>
               <member>dst</member>
               <member>from</member>
@@ -1493,14 +1639,14 @@
           </url>
         </type>
         <description>Internal rules should not have URL filtering applied.</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Internal Apps">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Apps</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
-        <frequency>daily</frequency>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <type>
           <traffic>
             <sortby>repeatcnt</sortby>
@@ -1516,14 +1662,15 @@
             </values>
           </traffic>
         </type>
-        <description>Internal allowed traffic where application not determined (incomplete, not-applicable, or insufficient-data)</description>
+        <frequency>daily</frequency>
+        <description>Internal applications by rule</description>
       </entry>
       <entry name="Internal Apps-IPs">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Apps-IPs</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <type>
           <traffic>
             <sortby>repeatcnt</sortby>
@@ -1541,14 +1688,15 @@
             </values>
           </traffic>
         </type>
-        <description>Internal traffic where application is classified - incomplete, not-applicable, or insufficient-data - Source IP</description>
+        <frequency>daily</frequency>
+        <description>Internal Apps by Rule w Src Addr</description>
       </entry>
       <entry name="Internal Apps-Ports">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal Apps-Ports</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or (((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
           <traffic>
@@ -1566,14 +1714,14 @@
             </values>
           </traffic>
         </type>
-        <description>Internal traffic where application is classified - incomplete, not-applicable, or insufficient-data - by Port</description>
+        <description>Internal Apps by Rule by Dst Port</description>
       </entry>
       <entry name="Internal Unknown Apps">
         <period>last-7-calendar-days</period>
         <topn>500</topn>
         <topm>10</topm>
         <caption>Internal Unknown Apps</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and ((app eq unknown-tcp) or (app eq unknown-udp) or ( app eq unknown-p2p)) and (action eq allow)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((app eq unknown-tcp) or (app eq unknown-udp) or ( app eq unknown-p2p)) and (action eq allow)</query>
         <frequency>daily</frequency>
         <type>
           <traffic>
@@ -1600,7 +1748,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Internal File DNLD by Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (direction eq server-to-client)</query>
+        <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
           <data>
@@ -1619,7 +1767,7 @@
             </values>
           </data>
         </type>
-        <description>Internal Clients Downloading Files from your network</description>
+        <description>Internal clients downloading files from your network</description>
       </entry>
       <entry name="Outbound Used Rules">
         <period>last-7-calendar-days</period>
@@ -1734,6 +1882,7 @@
           </traffic>
         </type>
         <description>Optional: What is trying to access external servers. Not scheduled.</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Outbound Web Apps">
         <period>last-7-calendar-days</period>
@@ -1757,6 +1906,7 @@
           </traffic>
         </type>
         <description>Allowed applications from Internal to Internet where application is not (insufficient-data, incomplete, or not-applicable) that is not in category any</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Outbound Web Apps-IPs">
         <period>last-7-calendar-days</period>
@@ -1782,6 +1932,7 @@
           </traffic>
         </type>
         <description>Allowed applications from Internal to Internet where application is not (insufficient-data, incomplete, or not-applicable) that is not in category any, by IP</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Outbound NonWeb Apps-IPs">
         <period>last-7-calendar-days</period>
@@ -1807,6 +1958,7 @@
           </traffic>
         </type>
         <description>Allowed applications to Internet not identified as (insufficient-data, incomplete, or not-applicable) in any category, by IP</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Outbound Web Apps-Location">
         <period>last-7-calendar-days</period>
@@ -1888,7 +2040,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Web Apps-Ports</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category neq any)</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category neq any)</query>
         <frequency>daily</frequency>
         <type>
           <traffic>
@@ -1993,7 +2145,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound File UPLD by Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (direction eq client-to-server)</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and (direction eq client-to-server)</query>
         <frequency>daily</frequency>
         <type>
           <data>
@@ -2001,6 +2153,13 @@
             <group-by>rule</group-by>
             <aggregate-by>
               <member>threatid</member>
+              <member>to</member>
+              <member>from</member>
+              <member>src</member>
+              <member>dstloc</member>
+              <member>dst</member>
+              <member>direction</member>
+              <member>action</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2057,7 +2216,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Allowd Viruses</caption>
-        <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
+        <query>((subtype eq virus) or (subtype eq wildfire-virus)) and (zone.dst eq INTERNET) and (action eq alert)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -2071,6 +2230,8 @@
               <member>threatid</member>
               <member>rule</member>
               <member>direction</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2084,8 +2245,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Denied Viruses</caption>
-        <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
-        <frequency>daily</frequency>
+        <query>((subtype eq virus) or (subtype eq wildfire-virus)) and ((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and ((action neq alert ) and (action neq allow))</query>
         <type>
           <threat>
             <sortby>repeatcnt</sortby>
@@ -2098,6 +2258,9 @@
               <member>threatid</member>
               <member>rule</member>
               <member>direction</member>
+              <member>subtype</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2105,6 +2268,7 @@
           </threat>
         </type>
         <description>Internal viruses denied in to the Internet</description>
+        <frequency>daily</frequency>
       </entry>
       <entry name="Outbound Rules wThreat">
         <period>last-7-calendar-days</period>
@@ -2145,6 +2309,7 @@
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>filetype</member>
+              <member>category</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2261,7 +2426,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Allowd Vuln C2S Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -2275,6 +2440,8 @@
               <member>direction</member>
               <member>severity</member>
               <member>category-of-threatid</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2288,7 +2455,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Denied Vuln C2S Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -2302,6 +2469,8 @@
               <member>direction</member>
               <member>severity</member>
               <member>category-of-threatid</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2315,7 +2484,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Allowd Vuln S2C Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow))</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -2328,6 +2497,8 @@
               <member>direction</member>
               <member>sport</member>
               <member>category-of-threatid</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2341,7 +2512,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound Denied Vuln S2C Rule</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
           <threat>
@@ -2354,6 +2525,8 @@
               <member>direction</member>
               <member>sport</member>
               <member>category-of-threatid</member>
+              <member>action</member>
+              <member>to</member>
             </aggregate-by>
             <values>
               <member>repeatcnt</member>
@@ -2367,7 +2540,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound URL Cats Quest PANDB</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((category eq dynamic-dns) or (category eq hacking) or (category eq malware) or (category eq parked) or (category eq phishing) or (category eq proxy-avoidance-and-anonymizers) or (category eq questionable))</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and ((category eq dynamic-dns) or (category eq hacking) or (category eq malware) or (category eq parked) or (category eq phishing) or (category eq proxy-avoidance-and-anonymizers) or (category eq questionable))</query>
         <frequency>daily</frequency>
         <type>
           <url>
@@ -2413,7 +2586,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Outbound URL Cats Allowed</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (action neq block-url)</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action neq block-url)</query>
         <frequency>daily</frequency>
         <type>
           <url>
@@ -2433,7 +2606,7 @@
         <topn>500</topn>
         <topm>10</topm>
         <caption>Outbound URLs Category Unknown</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (category eq unknown)</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq unknown)</query>
         <frequency>daily</frequency>
         <type>
           <url>
@@ -2460,7 +2633,7 @@
         <topn>500</topn>
         <topm>10</topm>
         <caption>Outbound URLs Category Parked</caption>
-        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (category eq parked)</query>
+        <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq parked)</query>
         <frequency>daily</frequency>
         <type>
           <url>
@@ -2510,41 +2683,26 @@
         <description>Internal Clients visiting URLs categorized as dynamic-dns</description>
       </entry>
     </reports>
-    <log-settings>
-      <email>
-        <entry name="Sample_Email_Profile">
-          <server>
-            <entry name="sample_email">
-              <display-name>Sample Email</display-name>
-              <gateway>1.1.1.1</gateway>
-              <from>firewall@acme.com</from>
-              <to>team@acme.com</to>
-            </entry>
-          </server>
-        </entry>
-      </email>
-      <profiles>
-        <entry name="Test Log Forwarding">
-          <match-list>
-            <entry name="T-Pano">
-              <log-type>traffic</log-type>
-              <filter>All Logs</filter>
-              <send-to-panorama>yes</send-to-panorama>
-            </entry>
-          </match-list>
-        </entry>
-        <entry name="Default">
-          <match-list>
-            <entry name="default">
-              <log-type>traffic</log-type>
-              <filter>All Logs</filter>
-              <send-to-panorama>no</send-to-panorama>
-            </entry>
-          </match-list>
-        </entry>
-      </profiles>
-    </log-settings>
     <report-group>
+      <entry name="Experimental Reports">
+        <custom-widget>
+          <entry name="1">
+            <custom-report>Exp-All App Traffic</custom-report>
+          </entry>
+          <entry name="2">
+            <custom-report>Exp-URL-Example</custom-report>
+          </entry>
+          <entry name="3">
+            <custom-report>Exp-Vulnerability-Exempt</custom-report>
+          </entry>
+        </custom-widget>
+        <title-page>yes</title-page>
+        <variable>
+          <entry name="title">
+            <value>Experimental Reports</value>
+          </entry>
+        </variable>
+      </entry>
       <entry name="Brute Force Tuning">
         <custom-widget>
           <entry name="1">
@@ -2558,6 +2716,9 @@
           </entry>
           <entry name="4">
             <custom-report>Internal Threat by DST IP</custom-report>
+          </entry>
+          <entry name="5">
+            <custom-report>Brute Force All</custom-report>
           </entry>
         </custom-widget>
         <title-page>yes</title-page>
@@ -2880,6 +3041,9 @@
           <entry name="9">
             <custom-report>Outbound Denied Vuln S2C Rule</custom-report>
           </entry>
+          <entry name="10">
+            <custom-report>Clients sinkholed</custom-report>
+          </entry>
         </custom-widget>
         <title-page>yes</title-page>
         <variable>
@@ -2938,10 +3102,39 @@
           </entry>
         </variable>
       </entry>
+      <entry name="Threat Validation">
+        <custom-widget>
+          <entry name="1">
+            <custom-report>Threat Check</custom-report>
+          </entry>
+        </custom-widget>
+        <title-page>yes</title-page>
+      </entry>
     </report-group>
+    <log-settings>
+      <email>
+        <entry name="Sample_Email_Profile">
+          <server>
+            <entry name="Sample_Email_Profile">
+              <display-name>Panorama</display-name>
+              <gateway>192.0.2.1</gateway>
+              <from>sentfrom@yourdomain.com</from>
+              <to>sentto@yourdomain.com</to>
+            </entry>
+          </server>
+        </entry>
+      </email>
+    </log-settings>
     <email-scheduler>
       <entry name="Brute Force Tuning">
         <report-group>Brute Force Tuning</report-group>
+        <email-profile>Sample_Email_Profile</email-profile>
+        <recurring>
+          <daily/>
+        </recurring>
+      </entry>
+      <entry name="Experimental Reports">
+        <report-group>Experimental Reports</report-group>
         <email-profile>Sample_Email_Profile</email-profile>
         <recurring>
           <daily/>
@@ -3019,6 +3212,13 @@
       </entry>
       <entry name="SSL Percentage">
         <report-group>SSL Percentage</report-group>
+        <email-profile>Sample_Email_Profile</email-profile>
+        <recurring>
+          <daily/>
+        </recurring>
+      </entry>
+      <entry name="Threat Validation">
+        <report-group>Threat Validation</report-group>
         <email-profile>Sample_Email_Profile</email-profile>
         <recurring>
           <daily/>
@@ -3199,19 +3399,33 @@
       </network>
       <deviceconfig>
         <system>
-          <ip-address>192.168.255.80</ip-address>
-          <netmask>255.255.255.0</netmask>
+          <type>
+            <static/>
+          </type>
           <update-server>updates.paloaltonetworks.com</update-server>
           <update-schedule>
             <threats>
               <recurring>
-                <weekly>
-                  <day-of-week>wednesday</day-of-week>
-                  <at>01:02</at>
-                  <action>download-only</action>
-                </weekly>
+                <daily>
+                  <at>01:30</at>
+                  <action>download-and-install</action>
+                </daily>
               </recurring>
             </threats>
+            <anti-virus>
+              <recurring>
+                <hourly>
+                  <action>download-and-install</action>
+                </hourly>
+              </recurring>
+            </anti-virus>
+            <wildfire>
+              <recurring>
+                <every-15-mins>
+                  <action>download-and-install</action>
+                </every-15-mins>
+              </recurring>
+            </wildfire>
           </update-schedule>
           <timezone>US/Pacific</timezone>
           <service>
@@ -3219,13 +3433,15 @@
             <disable-http>yes</disable-http>
           </service>
           <hostname>PA-VM</hostname>
+          <ip-address>192.168.255.113</ip-address>
+          <netmask>255.255.255.0</netmask>
           <default-gateway>192.168.255.1</default-gateway>
           <dns-setting>
             <servers>
               <primary>8.8.8.8</primary>
+              <secondary>8.8.4.4</secondary>
             </servers>
           </dns-setting>
-          <server-verification>yes</server-verification>
         </system>
         <setting>
           <config>
@@ -3234,91 +3450,18 @@
           <management>
             <hostname-type-in-syslog>FQDN</hostname-type-in-syslog>
           </management>
+          <auto-mac-detect>yes</auto-mac-detect>
         </setting>
       </deviceconfig>
       <vsys>
         <entry name="vsys1">
           <application/>
           <application-group/>
-          <zone>
-            <entry name="L3-Trust">
-              <network>
-                <layer3/>
-              </network>
-            </entry>
-            <entry name="L3-Untrust">
-              <network>
-                <layer3/>
-              </network>
-            </entry>
-            <entry name="L3-DMZ">
-              <network>
-                <layer3/>
-              </network>
-            </entry>
-          </zone>
+          <zone/>
           <service/>
           <service-group/>
           <schedule/>
-          <rulebase>
-            <security>
-              <rules/>
-            </security>
-          </rulebase>
-          <threats>
-            <vulnerability>
-              <entry name="42001">
-                <signature>
-                  <standard>
-                    <entry name="standard conditions">
-                      <and-condition>
-                        <entry name="And Condition 1">
-                          <or-condition>
-                            <entry name="Or Condition 1">
-                              <operator>
-                                <pattern-match>
-                                  <pattern>\x 44 6F 63 75 60 65 6E 74 5F 4F 70 65 6E \x</pattern>
-                                  <context>file-office-content</context>
-                                  <negate>no</negate>
-                                </pattern-match>
-                              </operator>
-                            </entry>
-                          </or-condition>
-                        </entry>
-                        <entry name="And Condition 2">
-                          <or-condition>
-                            <entry name="Or Condition 1">
-                              <operator>
-                                <pattern-match>
-                                  <pattern>\x 43 61 6C 6C 42 79 4E 61 60 65 \x</pattern>
-                                  <context>file-office-content</context>
-                                  <negate>no</negate>
-                                </pattern-match>
-                              </operator>
-                            </entry>
-                          </or-condition>
-                        </entry>
-                      </and-condition>
-                      <order-free>no</order-free>
-                      <scope>protocol-data-unit</scope>
-                    </entry>
-                  </standard>
-                </signature>
-                <default-action>
-                  <alert/>
-                </default-action>
-                <threatname>Suspicious VBA Obfuscation</threatname>
-                <severity>medium</severity>
-                <direction>both</direction>
-                <affected-host>
-                  <client>yes</client>
-                </affected-host>
-              </entry>
-            </vulnerability>
-          </threats>
-          <profile-group>
-            <entry name="Inbound"/>
-          </profile-group>
+          <rulebase/>
         </entry>
       </vsys>
     </entry>

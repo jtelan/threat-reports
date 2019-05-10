@@ -6544,30 +6544,6 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
               </type>
               <description>Viruses successfully blocked from inside your network</description>
             </entry>
-            <entry name="Internal Denied Viruses-1">
-              <period>last-7-calendar-days</period>
-              <topn>500</topn>
-              <topm>10</topm>
-              <caption>Internal Denied Viruses-1</caption>
-              <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
-              <frequency>daily</frequency>
-              <type>
-                <panorama-threat>
-                  <sortby>repeatcnt</sortby>
-                  <aggregate-by>
-                    <member>threatid</member>
-                    <member>category-of-threatid</member>
-                    <member>subtype</member>
-                    <member>app</member>
-                    <member>direction</member>
-                    <member>severity</member>
-                  </aggregate-by>
-                  <values>
-                    <member>repeatcnt</member>
-                  </values>
-                </panorama-threat>
-              </type>
-            </entry>
             <entry name="Internal Rules wThreat">
               <period>last-7-calendar-days</period>
               <topn>500</topn>
@@ -6963,29 +6939,6 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
                 </panorama-traffic>
               </type>
               <description>Internal allowed traffic where application not determined (incomplete, not-applicable, or insufficient-data)</description>
-            </entry>
-            <entry name="Internal Apps-1">
-              <period>last-7-calendar-days</period>
-              <topn>500</topn>
-              <topm>50</topm>
-              <caption>Internal Apps-1</caption>
-              <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or (((zone.src neq INTERNET) and (zone.dst eq INTERNET)) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3))) and (action eq allow) and ((app neq incomplete) or (app neq not-applicable) or (app neq insufficient-data))</query>
-              <frequency>daily</frequency>
-              <type>
-                <panorama-traffic>
-                  <sortby>repeatcnt</sortby>
-                  <group-by>rule</group-by>
-                  <aggregate-by>
-                    <member>from</member>
-                    <member>to</member>
-                    <member>app</member>
-                  </aggregate-by>
-                  <values>
-                    <member>bytes</member>
-                    <member>repeatcnt</member>
-                  </values>
-                </panorama-traffic>
-              </type>
             </entry>
             <entry name="Internal Apps-IPs">
               <period>last-7-calendar-days</period>
@@ -7969,6 +7922,24 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
               </type>
               <description>Internal Clients visiting URLs categorized as dynamic-dns</description>
             </entry>
+            <entry name="Recommended File Block">
+              <type>
+                <panorama-data>
+                  <aggregate-by>
+                    <member>threatid</member>
+                  </aggregate-by>
+                  <values>
+                    <member>repeatcnt</member>
+                  </values>
+                </panorama-data>
+              </type>
+              <period>last-7-calendar-days</period>
+              <topn>1000</topn>
+              <topm>10</topm>
+              <caption>Recommended File Block</caption>
+              <query>(threatid eq 52060) and (threatid eq 52019)</query>
+              <description>PE, DLL</description>
+            </entry>
           </reports>
           <report-group>
             <entry name="Brute Force Tuning">
@@ -8364,6 +8335,19 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
                 </entry>
               </variable>
             </entry>
+            <entry name="Non-Directional Threat Tuning">
+              <custom-widget>
+                <entry name="1">
+                  <custom-report>Clients sinkholed</custom-report>
+                </entry>
+                <entry name="2">
+                  <custom-report>WildFire Malicious Verdicts</custom-report>
+                </entry>
+                <entry name="3">
+                  <custom-report>WildFire verdicts SMTP</custom-report>
+                </entry>
+              </custom-widget>
+            </entry>
           </report-group>
           <email-scheduler>
             <entry name="Brute Force Tuning">
@@ -8737,7 +8721,7 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
             </entry>
           </reports>
           <report-group>
-            <entry name="Daily Tuning Reports">
+            <entry name="Daily Dir Reports">
               <custom-widget>
                 <entry name="1">
                   <custom-report>Daily Inbound Allowed Threats</custom-report>
@@ -8757,12 +8741,12 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
               </custom-widget>
               <variable>
                 <entry name="title">
-                  <value>Monthly Tuning Reports</value>
+                  <value>Daily Dir Reports</value>
                 </entry>
               </variable>
               <title-page>yes</title-page>
             </entry>
-            <entry name="Weekly Tuning Reports">
+            <entry name="Weekly Dir Reports">
               <custom-widget>
                 <entry name="1">
                   <custom-report>Weekly Inbound Allowed Threats</custom-report>
@@ -8786,21 +8770,21 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
               <title-page>yes</title-page>
               <variable>
                 <entry name="title">
-                  <value>Weekly Tuning Reports</value>
+                  <value>Weekly Dir Reports</value>
                 </entry>
               </variable>
             </entry>
           </report-group>
           <email-scheduler>
             <entry name="Daily Reports">
-              <report-group>Daily Tuning Reports</report-group>
+              <report-group>Daily Dir Reports</report-group>
               <email-profile>Sample_Email_Profile</email-profile>
               <recurring>
                 <disabled/>
               </recurring>
             </entry>
             <entry name="Weekly Reports">
-              <report-group>Weekly Tuning Reports</report-group>
+              <report-group>Weekly Dir Reports</report-group>
               <email-profile>Sample_Email_Profile</email-profile>
               <recurring>
                 <disabled/>
@@ -9061,24 +9045,6 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
                 <entry name="4">
                   <custom-report>Monthly Rules by Sesssions</custom-report>
                 </entry>
-                <entry name="5">
-                  <custom-report>Daily Malicious Categories</custom-report>
-                </entry>
-                <entry name="6">
-                  <custom-report>Daily Sinkhole Clients</custom-report>
-                </entry>
-                <entry name="7">
-                  <custom-report>Weekly Sinkhole Clients</custom-report>
-                </entry>
-                <entry name="8">
-                  <custom-report>Weekly Malicious Categories</custom-report>
-                </entry>
-                <entry name="9">
-                  <custom-report>Weekly Suspicious Categories</custom-report>
-                </entry>
-                <entry name="10">
-                  <custom-report>Daily Suspicious Categories</custom-report>
-                </entry>
               </custom-widget>
               <title-page>yes</title-page>
               <variable>
@@ -9087,13 +9053,65 @@ This appid covers the traffic between public VMware server and VUM or UMDS, but 
                 </entry>
               </variable>
             </entry>
+            <entry name="Daily Tuning Reports">
+              <custom-widget>
+                <entry name="1">
+                  <custom-report>Daily Malicious Categories</custom-report>
+                </entry>
+                <entry name="2">
+                  <custom-report>Daily Sinkhole Clients</custom-report>
+                </entry>
+                <entry name="3">
+                  <custom-report>Daily Suspicious Categories</custom-report>
+                </entry>
+              </custom-widget>
+              <title-page>yes</title-page>
+              <variable>
+                <entry name="title">
+                  <value>Daily Tuning Reports</value>
+                </entry>
+              </variable>
+            </entry>
+            <entry name="Weekly Tuning Reports">
+              <custom-widget>
+                <entry name="1">
+                  <custom-report>Weekly Malicious Categories</custom-report>
+                </entry>
+                <entry name="2">
+                  <custom-report>Weekly Sinkhole Clients</custom-report>
+                </entry>
+                <entry name="3">
+                  <custom-report>Weekly Suspicious Categories</custom-report>
+                </entry>
+              </custom-widget>
+              <title-page>yes</title-page>
+              <variable>
+                <entry name="title">
+                  <value>Weekly Tuning Reports</value>
+                </entry>
+              </variable>
+            </entry>
           </report-group>
           <email-scheduler>
-            <entry name="Monthly Reports">
+            <entry name="Monthly Tuning Reports">
               <report-group>Monthly Tuning Reports</report-group>
               <email-profile>Sample_Email_Profile</email-profile>
               <recurring>
                 <disabled/>
+              </recurring>
+            </entry>
+            <entry name="Weekly Tuning Reports">
+              <report-group>Weekly Tuning Reports</report-group>
+              <email-profile>Sample_Email_Profile</email-profile>
+              <recurring>
+                <weekly>monday</weekly>
+              </recurring>
+            </entry>
+            <entry name="Daily Tuning Reports">
+              <report-group>Daily Tuning Reports</report-group>
+              <email-profile>Sample_Email_Profile</email-profile>
+              <recurring>
+                <daily/>
               </recurring>
             </entry>
           </email-scheduler>

@@ -850,7 +850,7 @@
         <topn>500</topn>
         <topm>50</topm>
         <caption>Inbound Denied Spyware Rule</caption>
-        <query>((zone.src eq DMZInNet ) and (zone.dst neq DMZInNet ) and (addr.src notin 192.168.0.0/16) and (addr.src notin 10.0.0.0/8) and (direction eq client-to-server)) or ((zone.src neq DMZInNet ) and (zone.dst eq DMZInNet ) and (addr.dst notin 192.168.0.0/16) and (addr.dst notin 10.0.0.0/8) and (direction eq server-to-client)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq allow) or (action neq alert))</query>
+        <query>((zone.src eq INTERNET ) and (zone.dst neq INTERNET ) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (direction eq client-to-server)) or ((zone.src neq INTERNET ) and (zone.dst eq INTERNET ) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (direction eq server-to-client)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq allow) or (action neq alert))</query>
         <frequency>daily</frequency>
         <type>
           <threat>

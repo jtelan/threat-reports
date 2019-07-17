@@ -233,7 +233,7 @@
     <reports>
       <entry name="Hosts Visiting Malicious Sites">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -245,7 +245,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -257,7 +257,7 @@
       </entry>
       <entry name="Hosts Visiting Threat Cats">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -272,7 +272,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -284,7 +284,7 @@
       </entry>
       <entry name="Hosts Visiting Risky Sites">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -296,7 +296,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -308,7 +308,7 @@
       </entry>
       <entry name="WildFire Malicious Verdicts">
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>filedigest</member>
@@ -336,7 +336,7 @@
       </entry>
       <entry name="WildFire verdicts SMTP">
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>filedigest</member>
@@ -366,7 +366,7 @@
       </entry>
       <entry name="Clients sinkholed">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>from</member>
@@ -376,7 +376,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -394,7 +394,7 @@
         <query>(app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -403,7 +403,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>All Rules Being Used</description>
       </entry>
@@ -414,7 +414,7 @@
         <caption>Inbound Non-Working-Traffic</caption>
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and ((app eq incomplete) or (app eq insufficient-data) or (app eq not-applicable) or (action eq deny) or (action eq drop))</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -428,7 +428,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <frequency>daily</frequency>
         <description>Optional: What is trying to access internal servers. Not scheduled.</description>
@@ -441,7 +441,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -450,7 +450,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Inbound Rules Being Used</description>
       </entry>
@@ -462,7 +462,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>from</member>
@@ -471,7 +471,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>All Traffic source from Internet (used for determining amount of SSL traffic by dividing bytes from this rule in Inbound traffic SSL)</description>
       </entry>
@@ -483,7 +483,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app eq ssl)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>from</member>
@@ -492,7 +492,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>All SSL Traffic sourced from Internet (used for determining amount of SSL traffic by dividing bytes from Inbound Traffic - All into this rule)</description>
       </entry>
@@ -504,7 +504,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app eq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -514,7 +514,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Internet traffic where application not determined (insufficient-data, incomplete, or not-applicable)</description>
       </entry>
@@ -526,7 +526,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -537,7 +537,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Inbound Rules should not use URL Filtering</description>
       </entry>
@@ -549,7 +549,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server)</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -564,7 +564,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Internet Clients Uploading Files to your network</description>
       </entry>
@@ -576,7 +576,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>bytes</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -586,7 +586,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Source Countries initiating successful connections</description>
       </entry>
@@ -598,7 +598,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>bytes</sortby>
             <group-by>srcloc</group-by>
             <aggregate-by>
@@ -609,7 +609,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Source Countries initiating successful connections to your network and the Apps they are using</description>
       </entry>
@@ -621,7 +621,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -634,7 +634,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Viruses allow into your network from the Internet</description>
       </entry>
@@ -646,7 +646,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -659,7 +659,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Viruses successfully denied from entering your network</description>
       </entry>
@@ -671,7 +671,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -685,7 +685,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Inbound Rule Allow Threat-MHC">
@@ -696,7 +696,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -710,7 +710,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Threats geq Medium</description>
       </entry>
@@ -721,7 +721,7 @@
         <caption>Inbound Rule Allow Threat-LI</caption>
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and (severity leq low)</query>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -735,7 +735,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <frequency>daily</frequency>
         <description>Threats leq Low</description>
@@ -748,7 +748,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (category-of-threatid eq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -764,7 +764,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>One to many category brute-force</description>
       </entry>
@@ -776,7 +776,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (category-of-threatid eq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>dst</group-by>
             <aggregate-by>
@@ -792,7 +792,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Many to one category brute-force</description>
       </entry>
@@ -804,7 +804,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>filetype</member>
@@ -824,7 +824,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>app</member>
@@ -845,7 +845,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -867,7 +867,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq server-to-client))) and (subtype eq spyware) and ((action eq alert) or (action eq allow)) and (severity geq medium )</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -890,7 +890,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware allowed in from the Internet</description>
       </entry>
@@ -902,7 +902,7 @@
         <query>(((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (direction eq client-to-server)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq server-to-client))) and (subtype eq spyware) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -924,7 +924,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware successfully blocked from entering your network</description>
       </entry>
@@ -936,7 +936,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -955,7 +955,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Client on the Internet sending traffic to your network intended to exploit a vulnerability on your network.</description>
       </entry>
@@ -967,7 +967,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -986,7 +986,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilties successfully denied from entering your network where traffic initiated external, attacker external</description>
       </entry>
@@ -998,7 +998,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1017,7 +1017,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Inbound Allowed Server-to-Client traffic where threat log type is classified - vulnerability</description>
       </entry>
@@ -1029,7 +1029,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1048,7 +1048,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilties successfully denied from entering your network where traffic initiated external, attacker internal</description>
       </entry>
@@ -1059,7 +1059,7 @@
         <caption>Inbound URLs by Rule</caption>
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq continue) or (action eq override))</query>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1068,7 +1068,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Internal rules should not have URL filtering applied.</description>
       </entry>
@@ -1080,7 +1080,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1092,7 +1092,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data</description>
       </entry>
@@ -1103,7 +1103,7 @@
         <caption>Inbound Apps-IPs</caption>
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1117,7 +1117,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data - Source IP</description>
       </entry>
@@ -1129,7 +1129,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1143,7 +1143,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data - Destination Port</description>
       </entry>
@@ -1155,7 +1155,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>srcloc</group-by>
             <aggregate-by>
@@ -1167,7 +1167,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data - Source Country</description>
       </entry>
@@ -1179,7 +1179,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and ((app eq unknown-tcp) or (app eq unknown-udp) or ( app eq unknown-p2p)) and (action eq allow)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1194,7 +1194,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Traffic allowed inbound where application is classified - incomplete, not-applicable, or insufficient-data</description>
       </entry>
@@ -1206,7 +1206,7 @@
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (direction eq server-to-client)</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1221,7 +1221,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Internet Clients Downloading Files from your network</description>
       </entry>
@@ -1232,7 +1232,7 @@
         <caption>Inbound File DNLD by RuleDetail</caption>
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (direction eq server-to-client) and (srcloc neq 'US')</query>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1248,7 +1248,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <frequency>daily</frequency>
         <description>Internet Clients Downloading Files from your network</description>
@@ -1260,7 +1260,7 @@
         <caption>Internal Used Rules</caption>
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -1269,7 +1269,7 @@
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <frequency>daily</frequency>
         <description>Rules being used by traffic sourced from Internal going to Internal</description>
@@ -1281,7 +1281,7 @@
         <caption>Internal Rules wURL Filtering</caption>
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1292,7 +1292,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <frequency>daily</frequency>
         <description>Internal Rules should not use URL Filtering</description>
@@ -1304,7 +1304,7 @@
         <caption>Internal Rules wURL-Detail</caption>
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1317,7 +1317,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <frequency>daily</frequency>
         <description>Internal Rules should not use URL Filtering</description>
@@ -1330,7 +1330,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq alert) and (direction eq client-to-server)</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1344,7 +1344,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Internal Clients Uploading Files to your network</description>
       </entry>
@@ -1356,7 +1356,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((subtype eq virus) or (subtype eq wildfire-virus)) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -1368,7 +1368,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Viruses allowed where source and dest are inside your network</description>
       </entry>
@@ -1378,7 +1378,7 @@
         <caption>All Allowd Viruses</caption>
         <query>((subtype eq virus) or (subtype eq wildfire-virus)) and ((action eq alert) or (action eq allow))</query>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1395,7 +1395,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <frequency>daily</frequency>
@@ -1407,7 +1407,7 @@
         <caption>All Viruses</caption>
         <query>((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1424,7 +1424,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-30-calendar-days</period>
         <frequency>daily</frequency>
@@ -1438,7 +1438,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((action eq alert) or (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -1451,7 +1451,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Viruses successfully blocked from inside your network</description>
       </entry>
@@ -1463,7 +1463,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((direction eq server-to-client) or (direction eq client-to-server)) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1478,7 +1478,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Internal threats by Rule</description>
       </entry>
@@ -1490,7 +1490,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((direction eq server-to-client) or (direction eq client-to-server)) and (category-of-threatid eq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -1506,7 +1506,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>One to many category brute-force</description>
       </entry>
@@ -1518,7 +1518,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((direction eq server-to-client) or (direction eq client-to-server)) and (category-of-threatid eq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>dst</group-by>
             <aggregate-by>
@@ -1534,7 +1534,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Many to one category brute-force</description>
       </entry>
@@ -1546,7 +1546,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((direction eq server-to-client) or (direction eq client-to-server))</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1567,7 +1567,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1591,7 +1591,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((direction eq server-to-client) or (direction eq client-to-server)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1613,7 +1613,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (subtype eq spyware) and ((action eq alert) or (action eq allow))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1633,7 +1633,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Internal spyware allowed</description>
       </entry>
@@ -1644,7 +1644,7 @@
         <caption>All Allowd Spyware-MHC</caption>
         <query>(subtype eq spyware) and ((action eq alert) or (action eq allow)) and (severity geq medium)</query>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1662,7 +1662,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <frequency>daily</frequency>
         <description>All Allowed Spyware geq Medum</description>
@@ -1674,7 +1674,7 @@
         <caption>All Allowd Spyware-IL</caption>
         <query>( subtype eq spyware ) and ((action eq alert) or (action eq allow)) and (severity leq low)</query>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1692,7 +1692,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <frequency>daily</frequency>
         <description>All Allowed Spyware leq Low</description>
@@ -1705,7 +1705,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -1725,7 +1725,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware traffic identified from-to internal</description>
       </entry>
@@ -1737,7 +1737,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (subtype eq spyware) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -1753,7 +1753,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Internal Spyware geq Medium</description>
       </entry>
@@ -1765,7 +1765,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (subtype eq spyware) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1786,7 +1786,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware allowed where source and dest are inside your network</description>
       </entry>
@@ -1798,7 +1798,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1817,7 +1817,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Client on the Internet sending traffic to your network intended to exploit a vulnerability on your network</description>
       </entry>
@@ -1829,7 +1829,7 @@
         <query>(subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity geq medium) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1846,7 +1846,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Allowed Vulnerabilities geq Medium</description>
       </entry>
@@ -1858,7 +1858,7 @@
         <query>(subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (severity leq low) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1875,7 +1875,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Allowed Vulnerabilities leq Low</description>
       </entry>
@@ -1887,7 +1887,7 @@
         <query>(subtype eq vulnerability) and (severity geq medium) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -1905,7 +1905,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Vulnerabilities geq Medium</description>
       </entry>
@@ -1917,7 +1917,7 @@
         <query>(subtype eq spyware) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -1934,7 +1934,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Spyware geq Medium</description>
       </entry>
@@ -1946,7 +1946,7 @@
         <query>(subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>srcloc</group-by>
             <aggregate-by>
@@ -1962,7 +1962,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>All Allowed Vulnerabilities by Country</description>
       </entry>
@@ -1974,7 +1974,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -1993,7 +1993,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilities successfully denied from inside your network where traffic initiated internal (client), attacker and victim internal</description>
       </entry>
@@ -2005,7 +2005,7 @@
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2024,7 +2024,7 @@
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilities allowed inside your network, attacker (server) and victim (client) internal</description>
       </entry>
@@ -2037,7 +2037,7 @@
 and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2056,7 +2056,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilities successfully denied from inside your network where traffic initiated internal (server), attacker and victim internal</description>
       </entry>
@@ -2067,7 +2067,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Internal URLs by Rule</caption>
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2080,7 +2080,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <frequency>daily</frequency>
         <description>Internal rules should not have URL filtering applied.</description>
@@ -2093,7 +2093,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2105,7 +2105,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Internal allowed traffic where application not determined (incomplete, not-applicable, or insufficient-data)</description>
       </entry>
@@ -2116,7 +2116,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Internal Apps-IPs</caption>
         <query>((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1)) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2130,7 +2130,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Internal traffic where application is classified - incomplete, not-applicable, or insufficient-data - Source IP</description>
       </entry>
@@ -2142,7 +2142,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq allow) and (app neq incomplete) and (app neq not-applicable) and (app neq insufficient-data)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2155,7 +2155,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Internal traffic where application is classified - incomplete, not-applicable, or insufficient-data - by Port</description>
       </entry>
@@ -2167,7 +2167,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and ((app eq unknown-tcp) or (app eq unknown-udp) or ( app eq unknown-p2p)) and (action eq allow)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2182,7 +2182,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Internal traffic not destined to Internet that cannot be determined (unknown-tcp, unknown-udp, unknown-p2p)</description>
       </entry>
@@ -2194,7 +2194,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (action eq alert) and (direction eq server-to-client)</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2208,7 +2208,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Internal Clients Downloading Files from your network</description>
       </entry>
@@ -2220,7 +2220,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -2229,7 +2229,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Rules being used by traffic sourced from Internal going to External</description>
       </entry>
@@ -2241,7 +2241,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>to</member>
@@ -2250,7 +2250,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Traffic - SSL">
@@ -2261,7 +2261,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app eq ssl)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>to</member>
@@ -2270,7 +2270,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound File DNLD by Rule">
@@ -2281,7 +2281,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq server-to-client)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq client-to-server)))</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2296,7 +2296,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Files downloaded from internet</description>
       </entry>
@@ -2307,7 +2307,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Outbound Non-Working-Traffic</caption>
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and ((app eq incomplete) or (app eq insufficient-data) or (app eq not-applicable) or (action eq deny) or (action eq drop))</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2322,7 +2322,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Web Apps">
@@ -2332,7 +2332,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Outbound Web Apps</caption>
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category neq any)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2344,7 +2344,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Web Apps-IPs">
@@ -2354,7 +2354,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Outbound Web Apps-IPs</caption>
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category neq any)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2368,7 +2368,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound NonWeb Apps-IPs">
@@ -2378,7 +2378,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <caption>Outbound NonWeb Apps-IPs</caption>
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category eq any)</query>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2392,7 +2392,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Rules by Location">
@@ -2403,7 +2403,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2415,7 +2415,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound NonWeb Apps-Location">
@@ -2426,7 +2426,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category eq any)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2439,7 +2439,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound NonWeb Apps-Ports">
@@ -2450,7 +2450,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category eq any)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2464,7 +2464,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Web Apps-Ports">
@@ -2475,7 +2475,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category neq any)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2488,7 +2488,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound NonWeb Apps">
@@ -2499,7 +2499,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (category eq any)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2511,7 +2511,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Unknown Apps">
@@ -2522,7 +2522,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (( app eq unknown-tcp) or (app eq unknown-udp) or ( app eq unknown-p2p)) and (action eq allow)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2539,7 +2539,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound File UPLD by Rule">
@@ -2550,7 +2550,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client)))</query>
         <frequency>daily</frequency>
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2565,7 +2565,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <description>Files uploaded to internet</description>
       </entry>
@@ -2577,7 +2577,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>dstloc</member>
@@ -2586,7 +2586,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
       </entry>
       <entry name="Outbound Dest Countries-Apps">
@@ -2597,7 +2597,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (action eq allow) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (dstloc neq 'US') and (app neq dns)</query>
         <frequency>daily</frequency>
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <group-by>dstloc</group-by>
             <aggregate-by>
@@ -2607,7 +2607,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <description>Applications seen grouped by destination country</description>
       </entry>
@@ -2619,7 +2619,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and ((action eq alert) or (action eq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>severity</group-by>
             <aggregate-by>
@@ -2635,7 +2635,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound Denied Viruses">
@@ -2646,7 +2646,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client)) and ((action neq alert) and (action neq allow)) and ((subtype eq virus) or (subtype eq wildfire-virus))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>severity</group-by>
             <aggregate-by>
@@ -2662,7 +2662,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound Rules wThreat">
@@ -2673,7 +2673,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and ( severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2687,7 +2687,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound FileTypes to WildFire">
@@ -2698,7 +2698,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>filetype</member>
@@ -2718,7 +2718,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>app</member>
@@ -2738,7 +2738,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable)</query>
         <frequency>daily</frequency>
         <type>
-          <wildfire>
+          <panorama-wildfire>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2759,7 +2759,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and ((action eq alert) or (action eq allow)) and (subtype eq spyware) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2780,7 +2780,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware leaving your networks with a medium high or critical severity</description>
       </entry>
@@ -2792,7 +2792,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (direction eq client-to-server)) or ((zone.src eq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3) and (zone.dst neq INTERNET) and (direction eq server-to-client))) and ((action neq alert) and (action neq allow)) and (subtype eq spyware)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2813,7 +2813,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound Allowd Vuln C2S Rule">
@@ -2824,7 +2824,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2843,7 +2843,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilities initiated from your network to the internet with severity medium high or critical</description>
       </entry>
@@ -2855,7 +2855,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq client-to-server) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2874,7 +2874,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound Allowd Vuln S2C Rule">
@@ -2885,7 +2885,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action eq alert) or (action eq allow)) and (category-of-threatid neq brute-force) and (severity geq medium)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2903,7 +2903,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Vulnerabilities originating from the internet with severity medium high or critical</description>
       </entry>
@@ -2915,7 +2915,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (direction eq server-to-client) and (subtype eq vulnerability) and ((action neq alert) and (action neq allow)) and (category-of-threatid neq brute-force)</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -2933,7 +2933,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Outbound URL Cat Risky PANDB">
@@ -2944,7 +2944,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((category eq dynamic-dns) or (category eq hacking) or (category eq malware) or (category eq parked) or (category eq phishing) or (category eq proxy-avoidance-and-anonymizers) or (category eq questionable))</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>category</group-by>
             <aggregate-by>
@@ -2958,7 +2958,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
       </entry>
       <entry name="Outbound URL Cats Denied">
@@ -2969,7 +2969,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (action eq block-url)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>category</member>
@@ -2977,7 +2977,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs being Denied</description>
       </entry>
@@ -2989,7 +2989,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and (action neq block-url)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>category</member>
@@ -2997,7 +2997,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs being Allowed</description>
       </entry>
@@ -3009,7 +3009,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq unknown)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3024,7 +3024,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Unknown Action Alert</description>
       </entry>
@@ -3036,7 +3036,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (app neq insufficient-data) and (app neq incomplete) and (category eq malware) and (category eq command-and-control) and (category eq phishing)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3051,7 +3051,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
       </entry>
       <entry name="Outbound URLs Cat Parked">
@@ -3062,7 +3062,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq parked)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3077,7 +3077,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Parked Action Alert</description>
       </entry>
@@ -3089,7 +3089,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq command-and-control)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3104,7 +3104,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Command-and-Control Action Alert</description>
       </entry>
@@ -3116,7 +3116,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3))  and (action eq alert) and (category eq phishing)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3131,7 +3131,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Phishing Action Alert</description>
       </entry>
@@ -3143,7 +3143,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (category eq malware) and (action eq alert)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3158,7 +3158,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Malware Action Alert</description>
       </entry>
@@ -3170,7 +3170,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (category eq dynamic-dns) and (action eq alert)</query>
         <frequency>daily</frequency>
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3185,13 +3185,13 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <description>Outbound URLs Category Dynamic-DNS Action Alert</description>
       </entry>
       <entry name="All Brute Force">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3206,7 +3206,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3218,7 +3218,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Sinkhole Actions">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3232,7 +3232,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3244,7 +3244,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="All Brute Force-MHC">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3259,7 +3259,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3271,7 +3271,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Inbound Brute Force">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3286,7 +3286,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3298,7 +3298,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Outbound Brute Force">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3314,7 +3314,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3326,7 +3326,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Internal Brute Force">
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>action</group-by>
             <aggregate-by>
@@ -3341,7 +3341,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3359,7 +3359,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3373,7 +3373,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Spyware and Vulnerability Allowed geq Medium</description>
       </entry>
@@ -3385,7 +3385,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3399,7 +3399,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
         <description>Inbound Denied Threats geq Medium</description>
       </entry>
@@ -3411,7 +3411,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3425,7 +3425,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Daily Internal Allowd Threats">
@@ -3436,7 +3436,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET)  and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (threat-type eq wildfire-virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -3449,7 +3449,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Weekly Internal Allowd Threats">
@@ -3460,7 +3460,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET)  and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (threat-type eq wildfire-virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>threatid</member>
@@ -3473,7 +3473,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Daily Outbound Allowd Threats">
@@ -3484,7 +3484,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3498,7 +3498,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Weekly Outbound Allowd Threats">
@@ -3509,7 +3509,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action eq alert) or (action eq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3523,7 +3523,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Daily Outbound Denied Threats">
@@ -3534,7 +3534,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3548,7 +3548,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Daily Internal Denied Threats">
@@ -3559,7 +3559,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET)  and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (threat-type eq wildfire-virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>severity</group-by>
             <aggregate-by>
@@ -3574,7 +3574,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Weekly Internal Denied Threats">
@@ -3585,7 +3585,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>(((zone.src neq INTERNET) and (zone.dst neq INTERNET)) or ((zone.src neq INTERNET) and (zone.dst eq INTERNET) and ((addr.dst in 127.0.0.1) or (addr.dst in 127.0.0.2) or (addr.dst in 127.0.0.3))) or ((zone.src eq INTERNET)  and (zone.dst neq INTERNET) and ((addr.src in 127.0.0.1) or (addr.src in 127.0.0.2) or (addr.src in 127.0.0.3)))) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (threat-type eq wildfire-virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>severity</group-by>
             <aggregate-by>
@@ -3600,7 +3600,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Weekly Inbound Denied Threats">
@@ -3611,7 +3611,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src eq INTERNET) and (zone.dst neq INTERNET) and (addr.src notin 127.0.0.1) and (addr.src notin 127.0.0.2) and (addr.src notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3625,7 +3625,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Weekly Outbound Denied Threats">
@@ -3636,7 +3636,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
         <query>((zone.src neq INTERNET) and (zone.dst eq INTERNET) and (addr.dst notin 127.0.0.1) and (addr.dst notin 127.0.0.2) and (addr.dst notin 127.0.0.3)) and (app neq insufficient-data) and (app neq incomplete) and (app neq not-applicable) and ((action neq alert) and (action neq allow)) and ((threat-type eq virus) or (((threat-type eq spyware) or (threat-type eq vulnerability)) and (severity geq medium)))</query>
         <frequency>daily</frequency>
         <type>
-          <threat>
+          <panorama-threat>
             <sortby>repeatcnt</sortby>
             <group-by>rule</group-by>
             <aggregate-by>
@@ -3650,12 +3650,12 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </threat>
+          </panorama-threat>
         </type>
       </entry>
       <entry name="Clients Sinkholed Daily">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>from</member>
@@ -3667,7 +3667,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-calendar-day</period>
         <topn>500</topn>
@@ -3678,7 +3678,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Clients Sinkholed Weekly">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>from</member>
@@ -3690,7 +3690,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3701,7 +3701,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Daily Malicious URL Cats">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>srcuser</member>
@@ -3713,7 +3713,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-calendar-day</period>
         <topn>500</topn>
@@ -3724,7 +3724,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Weekly Malicious URL Cats">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>srcuser</member>
@@ -3736,7 +3736,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3747,7 +3747,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Daily Potential URL Cats">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>src</member>
@@ -3759,7 +3759,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-calendar-day</period>
         <topn>500</topn>
@@ -3770,7 +3770,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Weekly Potential URL Cats">
         <type>
-          <url>
+          <panorama-url>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>src</member>
@@ -3782,7 +3782,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </url>
+          </panorama-url>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3793,7 +3793,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Highest Vol Rules by Bytes">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>bytes</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -3802,7 +3802,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-calendar-month</period>
         <topn>500</topn>
@@ -3813,7 +3813,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Least Vol Rules by Bytes">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>bytes</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -3822,7 +3822,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>bytes</member>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-calendar-month</period>
         <topn>500</topn>
@@ -3833,7 +3833,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Highest Vol Rules by Sessions">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -3842,7 +3842,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
               <member>repeatcnt</member>
               <member>bytes</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-calendar-month</period>
         <topn>500</topn>
@@ -3853,7 +3853,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Rule Usage Monthly Stats">
         <type>
-          <traffic>
+          <panorama-traffic>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>rule</member>
@@ -3861,7 +3861,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </traffic>
+          </panorama-traffic>
         </type>
         <period>last-calendar-day</period>
         <topn>500</topn>
@@ -3871,7 +3871,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Risky File Types Allowed">
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>app</member>
@@ -3882,7 +3882,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <period>last-7-calendar-days</period>
         <topn>5000</topn>
@@ -3894,7 +3894,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Hosts DNLD Risky Files">
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -3907,7 +3907,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3919,7 +3919,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="Hosts UPLD Risky Files">
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <group-by>src</group-by>
             <aggregate-by>
@@ -3931,7 +3931,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <period>last-7-calendar-days</period>
         <topn>500</topn>
@@ -3943,7 +3943,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
       </entry>
       <entry name="All Risky File Types">
         <type>
-          <data>
+          <panorama-data>
             <sortby>repeatcnt</sortby>
             <aggregate-by>
               <member>app</member>
@@ -3954,7 +3954,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
             <values>
               <member>repeatcnt</member>
             </values>
-          </data>
+          </panorama-data>
         </type>
         <period>last-7-calendar-days</period>
         <topn>5000</topn>
@@ -4931,7 +4931,7 @@ and (direction eq server-to-client) and (subtype eq vulnerability) and ((action 
                 </hourly>
               </recurring>
             </anti-virus>
-            <wildfire>
+            <panorama-wildfire>
               <recurring>
                 <every-min>
                   <action>download-and-install</action>
@@ -5000,7 +5000,7 @@ Log off immediately if you are not an authorized user.</login-banner>
               </disk-quota>
             </quota-settings>
           </management>
-          <wildfire>
+          <panorama-wildfire>
             <file-size-limit>
               <entry name="pe">
                 <size-limit>10</size-limit>
